@@ -57,7 +57,7 @@ Pré-requisitos: Ter o **Docker** e **Docker Compose** instalados na máquina.
 
 1. **Clone o repositório:**
 ```bash
-   git clone [https://github.com/seu-usuario/noc-monitor.git](https://github.com/seu-usuario/noc-monitor.git)
+   git clone [https://github.com/ederdsc/disparo_hsm_cn.git](https://github.com/ederdsc/disparo_hsm_cn.git)
    cd noc-monitor
 ```
 
