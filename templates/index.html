@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Auditoria disparo HSM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <nav class="nav-menu">
+                <button class="nav-item active" onclick="mudarTela('monitor')" id="nav-monitor">
+                    <i class="material-icons-round">dashboard</i> <span>Monitoramento</span>
+                </button>
+                <button class="nav-item" onclick="mudarTela('historico')" id="nav-historico">
+                    <i class="material-icons-round">history</i> <span>Histórico</span>
+                </button>
+            </nav>
+        </aside>
+
+        <main class="main-area">
+            <section id="view-monitor" class="view-panel fade-in">
+                <header class="top-header">
+                    <div class="header-title"><h1>Incidentes em Tempo Real</h1></div>
+                    <div class="live-status pulse"><span class="dot"></span> Monitorando</div>
+                </header>
+                <div class="dashboard-grid">
+                    <div class="list-header">
+                        <span>Status</span><span>Horário</span><span>Impacto</span><span>OLT | SLOT/PON</span><span>Ações</span>
+                    </div>
+                    <div class="incident-list" id="lista-alertas"><div class="skeleton-loader"></div></div>
+                </div>
+            </section>
+
+            <section id="view-historico" class="view-panel fade-in" style="display: none;">
+                <header class="top-header">
+                    <div class="header-title"><h1>Logs</h1></div>
+                    <button class="btn-icon refresh-btn" onclick="carregarHistorico()"><i class="material-icons-round">refresh</i></button>
+                </header>
+                <div class="table-container">
+                    <table class="modern-table">
+                        <thead>
+                            <tr>
+                                <th>Data Disparo</th>
+                                <th>OLT / Slot</th>
+                                <th>Decisão</th>
+                                <th>Status Atual</th> 
+                                <th>Próx. Envio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-historico"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal-backdrop" id="modal-backdrop">
+        <div class="modal-window">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <i class="material-icons-round" id="modal-icon">warning</i>
+                    <div><h2>Detalhes</h2><span id="modal-subtitle">...</span></div>
+                </div>
+                <button class="btn-close" onclick="fecharModal()"><i class="material-icons-round">close</i></button>
+            </div>
+            <div class="modal-content">
+                <div class="stats-grid">
+                    <div class="stat-card"><span class="label">Afetados</span><strong class="value" id="det-qtd">--</strong></div>
+                    <div class="stat-card"><span class="label">Diagnóstico</span><strong class="value" id="det-causa">--</strong></div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="modern-table small">
+                        <thead><tr><th>SN ONU</th><th>Cliente</th><th>Status</th><th>Slot</th><th>Contato</th></tr></thead>
+                        <tbody id="det-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-ghost" onclick="enviarAcao('negar')">Negar</button>
+                <button class="btn btn-primary" onclick="enviarAcao('aprovar')">Aprovar e Disparar</button>
+            </div>
+        </div>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>

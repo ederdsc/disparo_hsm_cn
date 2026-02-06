@@ -1,0 +1,16 @@
+services:
+  disparo_hsm_app:
+    build: .
+    container_name: disparo_hsm_app
+    restart: always
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./status_incidentes.json:/app/status_incidentes.json
+      - ./historico_logs.json:/app/historico_logs.json
+      - ./controle_prox_envio.json:/app/controle_prox_envio.json
+      - ./app_error.log:/app/app_error.log
+    env_file:
+      - .env
+    environment:
+      - TZ=America/Sao_Paulo
