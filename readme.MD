@@ -13,8 +13,6 @@ Este projeto tem como objetivo semi-automatizar o disparo de mensagens HSM infor
 
 O projeto segue uma arquitetura monolítica leve, conteinerizada para fácil deploy, focada em performance para chamadas de API.
 
-![Architecture Diagram](./images/architecture_diagram.png)
-
 **Python & Flask**
 
 *Utilizei Flask pela sua leveza e flexibilidade. Como o núcleo da aplicação é receber um webhook/polling, processar dados e disparar ações, o Python se mostrou excelente. Implementei um `ThreadPoolExecutor` para processar centenas de clientes em paralelo, reduzindo o tempo de carregamento dos detalhes de 40s para menos de 3s.*
@@ -38,12 +36,12 @@ As principais funcionalidades desenhadas para agilidade na tomada de decisão:
 1. **Monitoramento e Classificação em Tempo Real:**
    Identifica automaticamente o tipo de falha. Se for `LOS` (Rompimento), exibe badge vermelha. Se for `POWER` (Energia), exibe badge laranja.
 
-   ![Dashboard Monitor](./images/dashboard.png)
+   ![Dashboard Monitor](.images/dashboard.png)
 
 2. **Detalhes e Enriquecimento de Dados:**
    Ao clicar em um incidente, o sistema cruza o SN da ONU com o Sistema de gerenciamento de OLT para buscar o nome e telefone do cliente, exibindo também o status atual da conexão.
 
-   ![Modal Detalhes](./images/details.png)
+   ![Modal Detalhes](.images/details.png)
 
 3. **Flap Damping (Controle de Oscilação):**
    Lógica inteligente que impede envios duplicados. Se um disparo foi realizado para uma porta/OLT específica, o sistema bloqueia novos alertas dessa mesma origem por 24 horas, evitando spam para o cliente final e envio somente 1 vez ao dia.
@@ -63,16 +61,19 @@ Pré-requisitos: Ter o **Docker** e **Docker Compose** instalados na máquina.
 
 2. **Configure as Variáveis de Ambiente: Crie um arquivo .env na raiz do projeto com suas credenciais:**
 
-Snippet de código
 # API SISTEMA DE GERENCIAMENTO DE OLT
+```bash
 API_BASE_URL=https://api.seuisp.com.br
 API_AUTH_URL=https://api.seuisp.com.br/oauth/login
 API_USER=seu_usuario
 API_PASS=sua_senha
+```
 
 # API HSM
+```bash
 URL_HSM=https://api.hsm.com/send
 TOKEN_HSM=seu_token
+```
 
 **Execute com Docker Compose:**
 ```bash
